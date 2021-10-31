@@ -1,7 +1,4 @@
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
+import java.util.concurrent.*;
 
 public class ThreadReturningResultExecutorOne {
 
@@ -17,6 +14,19 @@ public class ThreadReturningResultExecutorOne {
         Future<?> result4=es.submit(new LoopTaskA());
         Future<Double> result5=es.submit(new LoopTaskA(),999.888);
         es.shutdown();
+
+
+        for(int i=0;i<5;i++){
+
+            TimeUnit.MILLISECONDS.sleep(300);
+            System.out.println("##### is done from task1 "+result1.isDone());
+            System.out.println("##### is done from task2 "+result2.isDone());
+            System.out.println("##### is done from task3 "+result3.isDone());
+            System.out.println("##### is done from task4 "+result4.isDone());
+            System.out.println("##### is done from task5 "+result5.isDone());
+
+
+        }
 
         System.out.println("##### result from task1 "+result1.get());
         System.out.println("##### result from task2 "+result2.get());
