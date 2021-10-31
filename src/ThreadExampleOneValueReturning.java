@@ -1,3 +1,5 @@
+import java.util.concurrent.TimeUnit;
+
 public class ThreadExampleOneValueReturning {
 
     public static void main(String[] args){
@@ -17,6 +19,21 @@ public class ThreadExampleOneValueReturning {
         thread2.start();
         thread3.start();
 
+
+        while(true){
+            System.out.println("is thread1 is alive: "+thread1.isAlive());
+            System.out.println("is thread2 is alive: "+thread2.isAlive());
+            System.out.println("is thread3 is alive: "+thread3.isAlive());
+
+            try {
+                TimeUnit.MILLISECONDS.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            if( !thread1.isAlive() && !thread2.isAlive() && !thread3.isAlive()){
+                break;
+            }
+        }
         System.out.println("####sum returned fro thread1 "+task1.getSum());
         System.out.println("####sum returned fro thread2 "+task2.getSum());
         System.out.println("####sum returned fro thread3 "+task3.getSum());
