@@ -22,6 +22,7 @@ class FourthTask implements Runnable{
     private  int instance=0;
 
     public void run(){
+
         for(int i=10;i>0;i--){
 
             System.out.println("instance is "+this.instance+" loop count: "+i);
