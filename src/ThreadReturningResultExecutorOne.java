@@ -13,10 +13,13 @@ public class ThreadReturningResultExecutorOne {
 
         Future<?> result4=es.submit(new LoopTaskA());
         Future<Double> result5=es.submit(new LoopTaskA(),999.888);
+
+        FutureTask<Integer> result6= new FutureTask<>(new CalculationTaskA(10,20,100));
+        es.execute(result6);
         es.shutdown();
 
 
-        for(int i=0;i<5;i++){
+        for(int i=0;i<6;i++){
 
             TimeUnit.MILLISECONDS.sleep(300);
             System.out.println("##### is done from task1 "+result1.isDone());
@@ -24,15 +27,17 @@ public class ThreadReturningResultExecutorOne {
             System.out.println("##### is done from task3 "+result3.isDone());
             System.out.println("##### is done from task4 "+result4.isDone());
             System.out.println("##### is done from task5 "+result5.isDone());
+            System.out.println("##### is done from task6 "+result6.isDone());
 
 
         }
-
+        System.out.println("##### result from task6 "+result6.get());
         System.out.println("##### result from task1 "+result1.get());
         System.out.println("##### result from task2 "+result2.get());
         System.out.println("##### result from task3 "+result3.get());
         System.out.println("##### result from task4 "+result4.get());
         System.out.println("##### result from task5 "+result5.get());
+
 
 
 
