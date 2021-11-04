@@ -3,6 +3,7 @@ import java.util.*;
 public class Phenom {
 
     static int maxOccurrence=0;
+    static Map<String,Integer> index;
 
 /*
    // String s="abcdssabcdax";
@@ -17,7 +18,7 @@ public class Phenom {
 
     static boolean findPosition(String token, String value, String original){
 
-        return original.indexOf(token) > original.indexOf(value);
+        return index.get(token)>index.get(value);
 
     }
 
@@ -61,7 +62,8 @@ public class Phenom {
 
     static Map<String, Integer> findTheIndividualOccurrence(char[] tokens){
         Map<String, Integer> Occurrence= new HashMap<>();
-
+        index= new HashMap<>();
+        int idx=0;
         for (char c : tokens) {
             String token = String.valueOf(c);
             if (Occurrence.containsKey(token)) {
@@ -73,6 +75,7 @@ public class Phenom {
 
             } else {
                 Occurrence.put(token, 1);
+                index.put(token,idx++);
             }
         }
 
