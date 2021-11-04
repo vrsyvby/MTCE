@@ -17,22 +17,17 @@ public class Phenom {
 
     static boolean findPosition(String token, String value, String original){
 
-        if(original.indexOf(token)>original.indexOf(value)){
-            return true;
-        }
-
-        return false;
+        return original.indexOf(token) > original.indexOf(value);
 
     }
 
     static LinkedList<String> adjustByCollision(LinkedList<String> elements, String value, String original){
             int position=0;
-            for(int i=0;i<elements.size();i++){
-              String token= elements.get(i);
-              if(!findPosition(token, value, original)){
-                  position++;
-              }
+        for (String token : elements) {
+            if (!findPosition(token, value, original)) {
+                position++;
             }
+        }
             elements.add(position,value);
             return elements;
     }
@@ -67,39 +62,51 @@ public class Phenom {
     static Map<String, Integer> findTheIndividualOccurrence(char[] tokens){
         Map<String, Integer> Occurrence= new HashMap<>();
 
-        for(int i=0;i<tokens.length;i++){
-            String token= String.valueOf(tokens[i]);
-            if(Occurrence.containsKey(token)){
-                int occur= Occurrence.get(token);
+        for (char c : tokens) {
+            String token = String.valueOf(c);
+            if (Occurrence.containsKey(token)) {
+                int occur = Occurrence.get(token);
                 Occurrence.put(token, ++occur);
-                if(maxOccurrence<occur){
-                    maxOccurrence=occur;
+                if (maxOccurrence < occur) {
+                    maxOccurrence = occur;
                 }
 
-            }else{
-                Occurrence.put(token,1);
+            } else {
+                Occurrence.put(token, 1);
             }
-    }
+        }
 
         return Occurrence;
    }
 
     public static void main(String[] args){
 
+
+        long startTime= System.currentTimeMillis();
         String s="abcdssabcdax";
         //solution(s);
         Map<String,Integer>  Occurrences= findTheIndividualOccurrence(s.toCharArray());
         LinkedList<String>[] reps= orderByOccurrence(Occurrences,s,maxOccurrence);
 
-        Arrays.stream(reps).filter(e-> e!=null).forEach(System.out::println);
-
+        Arrays.stream(reps).forEach(System.out::println);
+        System.out.println((System.currentTimeMillis()-startTime));
+        startTime= System.currentTimeMillis();
          s="abcddd";
         //solution(s);
          Occurrences= findTheIndividualOccurrence(s.toCharArray());
          reps= orderByOccurrence(Occurrences,s,maxOccurrence);
 
         Arrays.stream(reps).forEach(System.out::println);
+        System.out.println((System.currentTimeMillis()-startTime));
 
+        startTime= System.currentTimeMillis();
+        s="abcdddabcdssabcdax";
+        //solution(s);
+        Occurrences= findTheIndividualOccurrence(s.toCharArray());
+        reps= orderByOccurrence(Occurrences,s,maxOccurrence);
+
+        Arrays.stream(reps).forEach(System.out::println);
+        System.out.println((System.currentTimeMillis()-startTime));
 
     }
 }
